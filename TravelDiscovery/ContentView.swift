@@ -25,6 +25,10 @@ struct ContentView: View {
    }
 }
 
+struct Destination: Hashable {
+   let name, country, imageName: String
+}
+
 struct ContentView_Previews: PreviewProvider {
    static var previews: some View {
       ContentView()
@@ -32,6 +36,12 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct PopularDestinationsView: View {
+   
+   let destinations: [Destination] = [
+      .init(name: "Paris", country: "France", imageName: "eiffel_tower"),
+      .init(name: "Tokyo", country: "Japan", imageName: "japan"),
+      .init(name: "New York", country: "USA", imageName: "new_york"),
+   ]
    
    var body: some View {
       
@@ -46,13 +56,32 @@ struct PopularDestinationsView: View {
       
       ScrollView(.horizontal) {
          HStack(spacing: 8.0) {
-            ForEach(0..<5, id: \.self) { num in
-               Spacer()
-                  .frame(width: 125, height: 150)
-                  .background(Color.gray)
-                  .cornerRadius(5.0)
-                  .shadow(radius: 4, x: 0.0, y: 2)
-                  .padding(.bottom)
+            ForEach(destinations, id: \.self) { destination in
+               VStack(alignment: .leading, spacing: 0) {
+                  
+                  Image(destination.imageName)
+                     .resizable()
+                     .scaledToFill()
+                     .frame(width: 125, height: 125)
+                     .cornerRadius(5)
+                     .padding(.horizontal, 6)
+                     .padding(.vertical, 6)
+                  
+                  
+                  Text(destination.name)
+                     .font(.system(size: 12, weight: .semibold))
+                     .padding(.horizontal, 12)
+                  
+                  Text(destination.country)
+                     .font(.system(size: 12, weight: .semibold))
+                     .padding(.horizontal, 12)
+                     .padding(.bottom, 8)
+                     .foregroundColor(.gray)
+               }
+               .background(Color(.init(white: 0.9, alpha: 1)))
+               .cornerRadius(5.0)
+               .shadow(radius: 4, x: 0.0, y: 2)
+               .padding(.bottom)
             }
          }.padding(.horizontal)
       }
@@ -77,7 +106,7 @@ struct PopularRestaurantsView: View {
             ForEach(0..<5, id: \.self) { num in
                Spacer()
                   .frame(width: 200, height: 64)
-                  .background(Color.gray)
+                  .background(Color(.lightGray))
                   .cornerRadius(5.0)
                   .shadow(radius: 4, x: 0.0, y: 2)
                   .padding(.bottom)
@@ -127,7 +156,7 @@ struct Category: Hashable {
 struct DiscoverCategoriesView: View {
    
    let categories: [Category] = [
-   
+      
       .init(name: "Art", imageName: "paintpalette.fill"),
       .init(name: "Sport", imageName: "sportscourt.fill"),
       .init(name: "Live Events", imageName: "music.mic"),
