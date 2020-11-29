@@ -8,19 +8,52 @@
 import SwiftUI
 
 struct ContentView: View {
+   
+   init() {
+      UINavigationBar.appearance().largeTitleTextAttributes = [
+         .foregroundColor: UIColor.white
+      ]
+   }
+   
    var body: some View {
       NavigationView {
          
-         ScrollView {
-            DiscoverCategoriesView()
+         ZStack {
             
-            PopularDestinationsView()
+            LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 1, green: 0.7097949982, blue: 0, alpha: 1)), Color(#colorLiteral(red: 0.9032120109, green: 0.4328962564, blue: 0, alpha: 1))]), startPoint: .top, endPoint: .center)
+               .ignoresSafeArea()
             
-            PopularRestaurantsView()
+            Color(.init(white: 0.95, alpha: 1))
+               .offset(y: 400)
             
-            TrendingCreatorsView()
-            
-         }.navigationTitle("Discovery")
+            ScrollView {
+               
+               HStack {
+                  Image(systemName: "magnifyingglass")
+                  Text("Where do you want to go?")
+                  Spacer()
+               }
+               .font(.system(size: 14, weight: .semibold))
+               .foregroundColor(.white)
+               .padding()
+               .background(Color(.init(white: 1, alpha: 0.3)))
+               .cornerRadius(10)
+               .padding(8)
+               
+               DiscoverCategoriesView()
+               
+               VStack {
+                  PopularDestinationsView()
+                  
+                  PopularRestaurantsView()
+                  
+                  TrendingCreatorsView()
+               }.background(Color(.init(white: 0.95, alpha: 1)))
+               .cornerRadius(16)
+               .padding(.top, 32)
+               
+            }.navigationTitle("Discover")
+         }
       }
    }
 }
@@ -88,9 +121,9 @@ struct PopularDestinationsView: View {
                      .padding(.bottom, 8)
                      .foregroundColor(.gray)
                }
-               .background(Color(.init(white: 0.9, alpha: 1)))
+               .background(Color.white)
                .cornerRadius(5.0)
-               .shadow(radius: 4, x: 0.0, y: 2)
+               .shadow(color: .init(.sRGB, white: 0.8, opacity: 1), radius: 4, x: 0.0, y: 2)
                .padding(.bottom)
             }
          }.padding(.horizontal)
@@ -153,9 +186,9 @@ struct PopularRestaurantsView: View {
                   Spacer()
                }
                .frame(width: 240)
-               .background(Color(.init(white: 0.9, alpha: 1)))
+               .background(Color.white)
                .cornerRadius(5.0)
-               .shadow(color: .gray, radius: 4, x: 0.0, y: 2)
+               .shadow(color: .init(.sRGB, white: 0.8, opacity: 1), radius: 4, x: 0.0, y: 2)
                .padding(.bottom)
             }
          }.padding(.horizontal)
@@ -233,14 +266,14 @@ struct DiscoverCategoriesView: View {
                VStack(spacing: 8) {
                   Image(systemName: catergory.imageName)
                      .font(.system(size: 20))
-                     .foregroundColor(.white)
+                     .foregroundColor(Color(#colorLiteral(red: 0.9677194953, green: 0.621350944, blue: 0.001400604844, alpha: 1)))
                      .frame(width: 64, height: 64)
-                     .background(Color.gray)
+                     .background(Color.white)
                      .cornerRadius(64)
-                     .shadow(radius: 4, x: 0.0, y: 2)
                   
                   Text(catergory.name)
                      .font(.system(size: 12, weight: .semibold))
+                     .foregroundColor(.white)
                }.frame(width: 66)
             }
          }.padding(.horizontal)
